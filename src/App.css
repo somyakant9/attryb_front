@@ -1,0 +1,22 @@
+.app-container {
+  position: relative;
+  height: fit-content; /* Full viewport height */
+  width: 100%; /* Full width */
+  overflow: hidden; /* Prevent content overflow */
+}
+
+.app-container::before {
+  content: ''; /* Create the pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; /* Set the background image */
+}
+
+.app-container > * {
+  position: relative; /* Ensure child components stay above the pseudo-element */
+  z-index: 1;
+}
+
+
