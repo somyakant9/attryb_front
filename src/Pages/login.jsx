@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./signup.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -8,7 +9,7 @@ export default function Login() {
     password: "",
   });
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   // const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -17,25 +18,24 @@ export default function Login() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleLogin =async (formData)=>{
-     
+  const handleLogin = async (formData) => {
     try {
-      const response = await axios.post('https://attryb-back.onrender.com/api/auth/login', formData); 
+      const response = await axios.post(
+        "https://attryb-back.onrender.com/api/auth/login",
+        formData
+      );
       const { token } = response.data;
 
       // Store the token in localStorage (or cookies)
-      sessionStorage.setItem('authToken', token);
-      setTimeout(() => {
-        // Redirect to add car page
-        window.location.href = '/addCar';
-      }, 1500);
+      sessionStorage.setItem("authToken", token);
+      navigate("/addCar");
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid email or password');
+      setError(err.response?.data?.message || "Invalid email or password");
     }
-  }
+  };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("I am from submit")
+    console.log("I am from submit");
     console.log(formData);
     handleLogin(formData);
   };

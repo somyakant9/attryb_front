@@ -80,8 +80,9 @@ const CarTable = () => {
               <TableData colSpan="8">No car listings available</TableData>
             </TableRow>
           ) : (
-            cars.map((car) => (
+            cars.map((car,index) => (
               <TableRow key={car._id}>
+                <TableData>{index+1}</TableData>
                 <TableData>{car.model}</TableData>
                 <TableData>{car.year}</TableData>
                 <TableData>{car.listPrice}</TableData>
